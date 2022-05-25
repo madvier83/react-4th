@@ -6,20 +6,39 @@ export default function ExampleDetail() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 
+  const axios = require("axios").default;
+
+  // AXIOS
   useEffect(() => {
     async function getOneData() {
-      const request = await fetch(
-        `http://belajar.iamfraintdz.xyz/api/example/${Params._id}`
-      );
-      const response = await request.json();
-
-      setLoading(false);
-      setData(response);
-      console.log(response);
+      try {
+        const response = await axios.get(
+          `http://belajar.iamfraintdz.xyz/api/example/${Params._id}`
+        );
+        setLoading(false);
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
     getOneData();
   }, [Params]);
-  useEffect(() => {}, [Params]);
+
+  // useEffect(() => {
+  //   async function getOneData() {
+  //     const request = await fetch(
+  //       `http://belajar.iamfraintdz.xyz/api/example/${Params._id}`
+  //     );
+  //     const response = await request.json();
+
+  //     setLoading(false);
+  //     setData(response);
+  //     console.log(response);
+  //   }
+  //   getOneData();
+  // }, [Params]);
+  // useEffect(() => {}, [Params]);
 
   return (
     <>
@@ -40,8 +59,8 @@ export default function ExampleDetail() {
             <div className="false-box">false</div>
           )}
           <br />
-          <Link to={"/example"} className="link-default">
-            Back...
+          <Link to={"/example"} className="link-detail">
+            Back
           </Link>
         </>
       )}

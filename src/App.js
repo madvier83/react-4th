@@ -4,6 +4,7 @@ import "./pages/style.css";
 import { Link, Route, Routes } from "react-router-dom";
 import Example from "./pages/example";
 import ExampleDetail from "./pages/exampleDetail";
+import ExampleCreate from "./pages/exampleCreate";
 import Home from "./pages/home";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/example" element={<Example />} />
           <Route path="/example/:_id" element={<ExampleDetail />} />
+          <Route path="/exampleCreate" element={<ExampleCreate />} />
         </Routes>
       </header>
     </div>
