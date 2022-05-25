@@ -1,22 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import "./pages/style.css";
+import { Link, Route, Routes } from "react-router-dom";
+import Example from "./pages/example";
+import ExampleDetail from "./pages/exampleDetail";
+import Home from "./pages/home";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <nav>
+          <Link to="/" className="link-default">
+            Home
+          </Link>
+          -
+          <Link to="/example" className="link-default">
+            Examples
+          </Link>
+          -
+          <a
+            href="https://github.com/madvier83/react-4th"
+            target="_blank"
+            className="link-default"
+          >
+            GitHub
+          </a>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/example" element={<Example />} />
+          <Route path="/example/:_id" element={<ExampleDetail />} />
+        </Routes>
       </header>
     </div>
   );

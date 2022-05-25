@@ -1,0 +1,18 @@
+.link-default {
+  text-decoration: none;
+  color: aliceblue;
+  padding: 0 10px;
+}
+
+.true-box {
+  padding: 3px 10px;
+  margin-top: 20px;
+  color: #174704;
+  background-color: #5af51d;
+}
+.false-box {
+  padding: 3px 10px;
+  margin-top: 20px;
+  color: #47040f;
+  background-color: #f51d65;
+}
