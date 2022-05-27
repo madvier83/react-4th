@@ -20,7 +20,7 @@ export default function Example() {
         console.log(response);
       } catch (error) {
         setLoading("fail");
-        console.log(error);
+        return error;
       }
     }
     getAll();
@@ -55,40 +55,32 @@ export default function Example() {
       <Link to="/exampleCreate" className="link-create">
         Create Data
       </Link>
-      {loading === "true" && (
-        <>
-          <small>Fetching data . . .</small>
-        </>
-      )}
+      {loading === "true" && <small>Fetching data . . .</small>}
+      {loading === "fail" && <small>Fetch data failed</small>}
       {loading === "false" &&
         data.map(function (data) {
           return (
-            <>
-              <li key={data._id}>
-                <small>{data.field1}</small>
-                <small>
-                  <Link to={`/example/${data._id}`} className="link-detail">
-                    detail...
-                  </Link>
-                  <button className="link-update">Update</button>
-                  <button
-                    onClick={() => {
-                      exampleDelete(data._id);
-                    }}
-                    className="link-delete"
-                  >
-                    Delete
-                  </button>
-                </small>
-              </li>
-            </>
+            <li key={data._id}>
+              <small>{data.field1}</small>
+              <small>
+                <Link to={`/example/${data._id}`} className="link-detail">
+                  detail...
+                </Link>
+                <Link to={`/exampleUpdate/${data._id}`} className="link-update">
+                  Update
+                </Link>
+                <button
+                  onClick={() => {
+                    exampleDelete(data._id);
+                  }}
+                  className="link-delete"
+                >
+                  Delete
+                </button>
+              </small>
+            </li>
           );
         })}
-      {loading === "fail" && (
-        <>
-          <small>Fetch data failed</small>
-        </>
-      )}
     </>
   );
 }

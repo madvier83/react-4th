@@ -6,6 +6,7 @@ import Example from "./pages/example";
 import ExampleDetail from "./pages/exampleDetail";
 import ExampleCreate from "./pages/exampleCreate";
 import Home from "./pages/home";
+import ExampleUpdate from "./pages/exampleUpdate";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/example" element={<Example />} />
           <Route path="/example/:_id" element={<ExampleDetail />} />
           <Route path="/exampleCreate" element={<ExampleCreate />} />
+          <Route path="/exampleUpdate/:_id" element={<ExampleUpdate />} />
         </Routes>
       </header>
     </div>

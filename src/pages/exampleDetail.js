@@ -42,6 +42,7 @@ export default function ExampleDetail() {
 
   return (
     <>
+      <h2>Detail</h2>
       {loading && (
         <small>
           <br />
@@ -49,8 +50,7 @@ export default function ExampleDetail() {
         </small>
       )}
       {!loading && (
-        <>
-          <h3>Detail</h3>
+        <div>
           <p>field1 : {data.field1}</p>
           <small>field2 : {data.field2}</small>
           {data.field3 == true ? (
@@ -62,7 +62,7 @@ export default function ExampleDetail() {
           <Link to={"/example"} className="link-detail">
             Back
           </Link>
-        </>
+        </div>
       )}
     </>
   );
