@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Redirect, useNavigate } from "react-router-dom";
 
 export default function ExampleUpdate() {
   const Params = useParams();
   const [loading, setLoading] = useState("true");
+  const [isPending, setIsPending] = useState(false);
 
   const [field1, setField1] = useState();
   const [field2, setField2] = useState();
   const [field3, setField3] = useState();
+
+  const navigate = useNavigate();
 
   const axios = require("axios").default;
 
@@ -31,6 +34,7 @@ export default function ExampleUpdate() {
   }, [Params]);
 
   const updateData = async (e) => {
+    setIsPending(true);
     e.preventDefault();
     await axios({
       method: "put",
@@ -40,7 +44,13 @@ export default function ExampleUpdate() {
         field2: field2,
         field3: field3,
       },
-    });
+    })
+      .then(() => {
+        console.log("Data Updated");
+        // setIsPending(false);
+        navigate("/example");
+      })
+      .catch();
   };
 
   return (
@@ -75,16 +85,22 @@ export default function ExampleUpdate() {
             value={field3}
             onChange={(e) => {
               setField3(e.target.value);
-              console.log(field3);
             }}
           >
-            <option value={true}>True</option>
-            <option value={false}>False</option>
+            <option value={() => true}>True</option>
+            <option value={() => false}>False</option>
           </select>
           <br />
-          <button type="sumbit" className="link-update">
-            Update
-          </button>
+          {!isPending && (
+            <button type="sumbit" className="link-update">
+              Update
+            </button>
+          )}
+          {isPending && (
+            <button disabled className="link-update">
+              Updating data ...
+            </button>
+          )}
         </form>
       )}
     </>

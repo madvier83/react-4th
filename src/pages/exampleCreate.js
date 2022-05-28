@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function ExampleCreate() {
   const axios = require("axios").default;
   const [loading, setLoading] = useState();
+  const [isPending, setIsPending] = useState(false);
 
   const [field1, setField1] = useState("");
   const [field2, setField2] = useState(0);
   const [field3, setField3] = useState(true);
+  const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
+    setIsPending(true);
     e.preventDefault();
-    axios({
+    await axios({
       method: "post",
       url: `http://belajar.iamfraintdz.xyz/api/example`,
       data: {
@@ -18,7 +22,13 @@ export default function ExampleCreate() {
         field2: field2,
         field3: field3,
       },
-    });
+    })
+      .then(() => {
+        console.log("Data saved");
+        // setIsPending(false);
+        navigate("/example");
+      })
+      .catch();
   };
 
   return (
@@ -57,9 +67,16 @@ export default function ExampleCreate() {
           <option value={false}>False</option>
         </select>
         <br />
-        <button type="submit" className="link-create">
-          Create
-        </button>
+        {!isPending && (
+          <button type="submit" className="link-create">
+            Create
+          </button>
+        )}
+        {isPending && (
+          <button disabled className="link-create">
+            Saving data
+          </button>
+        )}
       </form>
     </>
   );
